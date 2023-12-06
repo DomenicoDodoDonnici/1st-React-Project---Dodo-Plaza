@@ -13,7 +13,7 @@ const carteIniziali = [
     prezzo: "500,00",
     set: "Skyridge",
     primaEdizione: false,
-    condizioni: "Near Mint",
+    condizioni: "Poor",
     foto: hoOhImage,
   },
   {
@@ -53,18 +53,59 @@ const carteIniziali = [
     prezzo: "300,00",
     set: "Skyridge",
     primaEdizione: true,
-    condizioni: "Mint",
+    condizioni: "Light Played",
     foto: gyaradosImage,
   },
 ];
 
 export default function App() {
+  const [carteCarrello, setCarteCarrello] = useState([]);
+  const [cartePreferite, setCartePreferite] = useState([]);
+
+  function aggiungiCartaAlCarrello(cartaDaAggiungere) {
+    setCarteCarrello([...carteCarrello, cartaDaAggiungere]);
+  }
+
+  function rimuoviCartaDalCarrello(cartaDaRimuovere) {
+    setCarteCarrello(
+      carteCarrello.filter((carta) => carta.id !== cartaDaRimuovere.id)
+    );
+  }
+
+  function calcolaTotaleCarrello() {
+    return carteCarrello.reduce(
+      (totale, carta) => totale + Number(carta.prezzo),
+      0
+    );
+  }
+
+  function aggiungiCartaAiPreferiti(cartaDaAggiungere) {
+    setCartePreferite([...cartePreferite, cartaDaAggiungere]);
+  }
+
+  function rimuoviCartaDaiPreferiti(cartaDaRimuovere) {
+    setCartePreferite(
+      cartePreferite.filter((carta) => carta.id !== cartaDaRimuovere.id)
+    );
+  }
+
   return (
     <div>
       <Header />
       <Form />
-      <Carrello />
-      <ListaCarte carte={carteIniziali} />
+      <Carrello
+        carteCarrello={carteCarrello}
+        calcolaCarrello={calcolaTotaleCarrello}
+      />
+      <ListaCarte
+        carte={carteIniziali}
+        carteCarrello={carteCarrello}
+        aggiungiCarrello={aggiungiCartaAlCarrello}
+        rimuoviCarrello={rimuoviCartaDalCarrello}
+        cartePreferite={cartePreferite}
+        aggiungiPreferiti={aggiungiCartaAiPreferiti}
+        rimuoviPreferiti={rimuoviCartaDaiPreferiti}
+      />
       <Footer />
     </div>
   );
@@ -121,19 +162,27 @@ function Form() {
   );
 }
 
-function Carrello() {
+function Carrello({ carteCarrello, calcolaCarrello }) {
+  /*
+  function carteCarrello (carta) {
+    return carteCarrello.find((cartaCarrello) => cartaCarrello.id === carta.id);
+  }
+  */
+
   return (
     <div className="carrello-container">
       <div className="carrello-info">
         <Bottone title="Clicca per visualizzare il contenuto del tuo carrello">
           Il tuo carrello 🛒
         </Bottone>
-        <p>
-          Il totale attuale del tuo carrello è di €X
-        </p>
+        <p>Il totale attuale del tuo carrello è di €{calcolaCarrello}</p>
       </div>
-      <Bottone>Aggiungi, modifica o rimuovi una carta ⚛️</Bottone>
-      <Bottone>Preferiti 💟</Bottone>
+      <div className="bottone-container">
+        <Bottone>Aggiungi, modifica o rimuovi una carta ⚛️</Bottone>
+      </div>
+      <div className="bottone-container">
+        <Bottone>Preferiti 💟</Bottone>
+      </div>
       <div className="pagination">
         <a href="#" aria-label="Previous">
           &laquo;
@@ -149,17 +198,57 @@ function Carrello() {
   );
 }
 
-function ListaCarte({ carte }) {
+function ListaCarte({
+  carte,
+  carteCarrello,
+  aggiungiCarrello,
+  rimuoviCarrello,
+  cartePreferite,
+  aggiungiPreferiti,
+  rimuoviPreferiti,
+}) {
   return (
     <ul className="card-list">
       {carte.map((carta) => (
-        <Carta key={carta.id} carta={carta} />
+        <Carta
+          key={carta.id}
+          carta={carta}
+          aggiungiCarrello={aggiungiCarrello}
+          rimuoviCarrello={rimuoviCarrello}
+          aggiungiPreferiti={aggiungiPreferiti}
+          rimuoviPreferiti={rimuoviPreferiti}
+          carteCarrello={carteCarrello}
+          cartePreferite={cartePreferite}
+        />
       ))}
     </ul>
   );
 }
 
-function Carta({ carta }) {
+const condizioniClassi = {
+  Mint: "mint",
+  "Near Mint": "near-mint",
+  Excellent: "excellent",
+  Good: "good",
+  "Light Played": "light-played",
+  Played: "played",
+  Poor: "poor",
+};
+
+function Carta({
+  carta,
+  carteCarrello,
+  aggiungiCarrello,
+  rimuoviCarrello,
+  cartePreferite,
+  aggiungiPreferiti,
+  rimuoviPreferiti,
+}) {
+  // Controlla se la carta è nel carrello
+  const inCarrello = carteCarrello.some((item) => item.id === carta.id);
+  // Controlla se la carta è nei preferiti
+  const inPreferiti = cartePreferite.some((item) => item.id === carta.id);
+
   return (
     <li className="card-list-item">
       <div className="card-image">
@@ -179,41 +268,29 @@ function Carta({ carta }) {
         </p>
 
         <span className="info-req">Condizioni </span>
-        {carta.condizioni === "Mint" && (
-          <span className="mint">{carta.condizioni}</span>
-        )}
-
-        {carta.condizioni === "Near Mint" && (
-          <span className="near-mint">{carta.condizioni}</span>
-        )}
-
-        {carta.condizioni === "Excellent" && (
-          <span className="excellent">{carta.condizioni}</span>
-        )}
-
-        {carta.condizioni === "Good" && (
-          <span className="good">{carta.condizioni}</span>
-        )}
-
-        {carta.condizioni === "Light Played" && (
-          <span className="light-played">{carta.condizioni}</span>
-        )}
-
-        {carta.condizioni === "Played" && (
-          <span className="played">{carta.condizioni}</span>
-        )}
-
-        {carta.condizioni === "Poor" && (
-          <span className="poor">{carta.condizioni}</span>
-        )}
+        <span className={condizioniClassi[carta.condizioni] || ""}>
+          {carta.condizioni}
+        </span>
 
         <p>
           <span className="info-req">Prezzo</span>{" "}
           <span className="info-res">€{carta.prezzo}</span>
         </p>
 
-        <Bottone>Aggiungi al carrello 🛒</Bottone>
-        <Bottone>Aggiungi ai preferiti 💟</Bottone>
+        <Bottone
+          onClick={() =>
+            inCarrello ? rimuoviCarrello(carta) : aggiungiCarrello(carta)
+          }
+        >
+          {inCarrello ? "Rimuovi dal carrello" : "Aggiungi al carrello"} 🛒
+        </Bottone>
+        <Bottone
+          onClick={() =>
+            inPreferiti ? rimuoviPreferiti(carta) : aggiungiPreferiti(carta)
+          }
+        >
+          {inPreferiti ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"} 💟
+        </Bottone>
       </div>
     </li>
   );

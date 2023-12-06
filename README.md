@@ -78,11 +78,9 @@ Creare un'applicazione web dinamica per la compravendita di carte Pokémon. L'ap
 - Assicurati di scrivere codice pulito e ben commentato.
 - Implementa funzionalità aggiuntive come ricerca di carte, filtri avanzati, o autenticazione utente, se il tempo lo permette.
 
-Questo progetto ti permetterà di mettere in pratica una vasta gamma di competenze di sviluppo web, dalla gestione dello stato dell'applicazione alla creazione di un'interfaccia utente reattiva e interattiva. Buona programmazione!
-
 ---
 
-Component Tree per Sito di Compravendita Carte Pokémon:
+Component Tree per Sito di Compravendita Carte Pokémon **(+Todos)**:
 
 App (Componente principale)
 

@@ -1,6 +1,7 @@
+/* Importazioni e Font */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
-/* Definizione della palette di colori */
+/* Definizioni di Base e Variabili */
 :root {
   --color-primary: #9a88d7;
   --color-secondary: #7d5ba6;
@@ -8,161 +9,188 @@
   --color-accent-light: #8e76b5;
 }
 
-/* Impostazione del font globale */
 body {
   font-family: "Roboto", sans-serif;
   background-color: var(--color-accent);
   color: white;
 }
 
-/* Stili per l'header */
+/* Stili per l'Header */
 .header {
-  position: fixed; /* Fix the header to the top of the viewport */
-  top: 0; /* Align to the top */
-  left: 0; /* Align to the left */
-  width: 100%; /* Span the full width of the viewport */
-  background-color: var(
-    --color-secondary
-  ); /* Use the dark color for the background */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--color-secondary);
   color: white;
-  padding: 1rem; /* Add some padding */
-  transform: skewY(-6deg); /* Skew the header for a fixed angle effect */
-  transform-origin: top left; /* Ensure the skew doesn't affect the layout flow */
-  z-index: 1000; /* Make sure the header is above all other content */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for depth */
+  padding: 1rem;
+  transform: skewY(-6deg);
+  transform-origin: top left;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* To correct the text inside the skewed header, you need to apply the reverse skew */
 .header h1 {
-  display: inline-block; /* Inline-block elements */
-  transform: skewY(6deg); /* Reverse the skew applied to the header */
-  margin: 0; /* Remove default margins */
-  padding: 0 1rem; /* Add horizontal padding */
+  display: inline-block;
+  transform: skewY(6deg);
+  margin: 0;
+  padding: 0 1rem;
 }
 
+/* Stili per il Form */
 .form {
   display: flex;
-  justify-content: flex-end; /* Allinea gli elementi a destra */
-  flex-wrap: wrap; /* Permette agli elementi di andare a capo */
-  gap: 10px; /* Spazio tra i gruppi di label e input */
-  padding: 10px 0; /* Padding verticale per un po' di spazio */
-  box-sizing: border-box; /* Assicura che padding e bordi siano inclusi nel calcolo della larghezza */
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 0;
+  box-sizing: border-box;
 }
 
 .form-group {
   display: flex;
-  flex-direction: column; /* Disponi in colonna label e input */
-  align-items: flex-start; /* Allinea gli elementi a sinistra */
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .form-group label {
-  text-align: center; /* Centra il testo del label */
-  font-weight: 700; /* Imposta il peso del carattere a grassetto */
-  display: block; /* Rendi il label un blocco per permettere il centratura */
-  width: 100%; /* Estendi il label per tutta la larghezza del form-group */
-  margin-bottom: 5px; /* Spazio sotto l'etichetta */
+  text-align: center;
+  font-weight: 700;
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
 }
 
 .form-group input[type="text"],
 .form-group select {
-  padding: 5px 10px; /* Padding per input e select */
-  border: 1px solid #ccc; /* Bordo sottile per gli elementi del form */
-  border-radius: 4px; /* Bordi arrotondati */
-  font-size: 1rem; /* Dimensione del testo coerente */
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
 }
 
 .form-group input[type="text"]:focus,
 .form-group select:focus {
   outline: none;
-  border-color: #999; /* Colore del bordo al focus */
+  border-color: #999;
 }
 
+/* Stili per il Carrello */
 .carrello-container {
-  display: flex;
-  justify-content: space-between; /* Spazio tra le informazioni del carrello e la paginazione */
-  align-items: center; /* Centra gli elementi verticalmente */
-  margin-bottom: 20px; /* Margine sotto il container del carrello */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
+.carrello-info,
+.bottone-container,
 .pagination {
   display: flex;
-  list-style: none;
-  margin: 0; /* Rimuove i margini di default */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-right: 1px solid #ddd;
+  padding: 0 20px;
+}
+
+.carrello-info:last-child,
+.bottone-container:last-child,
+.pagination {
+  border-right: none;
+}
+
+.carrello-info p,
+.bottone {
+  margin: auto;
+}
+
+/* Stili per la Paginazione */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .pagination a {
   padding: 8px 16px;
   text-decoration: none;
-  border: 1px solid #ddd; /* Bordo leggero per ogni elemento */
-  margin: 0 4px; /* Spazio tra gli elementi */
-  background-color: #f5f5f5; /* Colore di sfondo per i quadrati di paginazione */
-  transition: background-color 0.3s ease; /* Transizione fluida per il cambio di colore */
+  margin: 0 4px;
+  border: 1px solid #ddd;
+  background-color: #f5f5f5;
 }
 
 .pagination a:hover {
   border-color: #999;
-  background-color: #e0e0e0; /* Cambia il colore di sfondo al passaggio del mouse */
+  background-color: #e0e0e0;
 }
 
+.pagination a:last-child {
+  border-right: none;
+}
+
+/* Stili per la Lista delle Carte */
 .card-list {
   list-style-type: none;
   padding: 0;
-  margin: 20px; /* Spazio attorno alla lista per evitare che tocchi i bordi */
+  margin: 20px;
 }
 
 .card-list-item {
-  background-color: var(--color-primary); /* Sfondo chiaro per ogni carta */
-  border: 2px solid var(--color-accent-light); /* Bordo sottile per definire ogni carta */
+  background-color: var(--color-primary);
+  border: 2px solid var(--color-accent-light);
   padding: 20px;
-  border-radius: 8px; /* Bordi arrotondati per le carte */
-  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transizioni per l'effetto hover */
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
   display: flex;
-  align-items: center; /* Allinea verticalmente */
-  margin-bottom: 20px; /* Distanza tra le carte */
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .card-list-item:hover {
-  transform: translateY(-5px); /* Effetto sollevamento al passaggio del mouse */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra per profondità */
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Applica questo stile specificatamente alle immagini delle carte */
+/* Stili per l'Immagine della Carta */
 .card-image {
-  border: 3px solid var(--color-accent-light); /* Bordo solido che utilizza il colore di accento chiaro */
-  border-radius: 10px; /* Bordi arrotondati ma non troppo per mantenere l'aspetto della carta */
-  padding: 5px; /* Spazio tra il bordo dell'immagine e la cornice */
-  background: var(--color-accent-light); /* Colore di sfondo per la cornice */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Ombra sottile per aggiungere profondità */
-  transition: box-shadow 0.3s ease; /* Transizione fluida per l'ombra */
-  margin-right: 20px; /* Distanza tra l'immagine e il contenuto del testo */
+  border: 3px solid var(--color-accent-light);
+  border-radius: 10px;
+  padding: 5px;
+  background: var(--color-accent-light);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+  margin-right: 20px;
 }
 
-/* Effetto al passaggio del mouse */
 .card-image:hover {
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3); /* Ombra più profonda per un effetto di sollevamento */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
 
 .card-content {
-  flex: 1; /* Occupa lo spazio rimanente */
+  flex: 1;
 }
 
-/* Stili per il footer */
+/* Stili per il Footer */
 .footer {
-  display: flex; /* Usa Flexbox per allineare gli elementi */
-  justify-content: space-between; /* Distribuisci lo spazio tra gli elementi */
-  align-items: center; /* Centra gli elementi verticalmente */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: var(--color-primary);
   color: white;
-  padding: 20px; /* Aggiungi il padding desiderato */
-  position: relative; /* Imposta la posizione relativa per posizionare i figli assolutamente all'interno */
-  box-sizing: border-box; /* Include padding e bordo nella larghezza dell'elemento */
+  padding: 20px;
+  position: relative;
+  box-sizing: border-box;
   left: 0;
   bottom: 0;
 }
 
 .footer ul {
   list-style: none;
-  margin: 0; /* Assicurati che non ci siano margini aggiuntivi */
+  margin: 0;
   padding: 0;
   text-align: left;
 }
@@ -174,97 +202,96 @@ body {
   background-color: var(--color-secondary);
   padding: 10px 15px;
   margin: 5px;
-  border-radius: 8px; /* Bordi arrotondati per i pulsanti */
-  transition: background-color 0.3s, transform 0.3s; /* Transizione per l'hover */
+  border-radius: 8px;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .footer a:hover {
   background-color: var(--color-accent-light);
-  transform: translateY(-3px); /* Effetto di sollevamento all'hover */
+  transform: translateY(-3px);
 }
 
 .footer .info-square {
-  width: 150px; /* o la dimensione desiderata per il quadrato di informazioni */
-  height: 150px; /* o la dimensione desiderata per il quadrato di informazioni */
+  width: 150px;
+  height: 150px;
   background-color: white;
-  color: var(--color-accent); /* Colore del testo all'interno del quadrato */
-  position: absolute; /* Posizione assoluta per allineare a destra */
-  right: 20px; /* Distanza dal lato destro del footer */
-  bottom: 20px; /* Distanza dal lato inferiore del footer */
-  border-radius: 8px; /* Bordi arrotondati per il quadrato */
-  display: flex; /* Utilizza Flexbox per allineare il contenuto interno */
-  align-items: center; /* Centra verticalmente il contenuto interno */
-  justify-content: center; /* Centra orizzontalmente il contenuto interno */
-  padding: 10px; /* Spazio interno */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ombra leggera per il rilievo */
+  color: var(--color-accent);
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Stili per il logo di Telegram */
+/* Stili per i Loghi nelle Classi del Footer */
+/* Stili per il Logo di Telegram */
 .telegram::before {
   content: "";
   display: inline-block;
-  width: 20px; /* o la dimensione desiderata per l'icona */
-  height: 20px; /* o la dimensione desiderata per l'icona */
-  background-image: url("img/Telegram_Logo.png"); /* Percorso dell'immagine del logo di Telegram */
+  width: 20px;
+  height: 20px;
+  background-image: url("img/Telegram_Logo.png");
   background-size: cover;
-  margin-right: 8px; /* Spazio tra l'icona e il testo */
+  margin-right: 8px;
 }
 
+/* Stili per il Logo di Vinted */
 .vinted::before {
   content: "";
   display: inline-block;
-  width: 60px; /* o la dimensione desiderata per l'icona */
-  height: 20px; /* o la dimensione desiderata per l'icona */
-  background-image: url("img/Vinted_Logo.png"); /* Percorso dell'immagine del logo di Telegram */
+  width: 60px; /* Dimensione maggiore per il logo di Vinted */
+  height: 20px;
+  background-image: url("img/Vinted_Logo.png");
   background-size: cover;
-  margin-right: 8px; /* Spazio tra l'icona e il testo */
+  margin-right: 8px;
 }
 
+/* Stili per il Logo di GitHub */
 .github::before {
   content: "";
   display: inline-block;
-  width: 20px; /* o la dimensione desiderata per l'icona */
-  height: 20px; /* o la dimensione desiderata per l'icona */
-  background-image: url("img/Github_Logo.png"); /* Percorso dell'immagine del logo di Telegram */
+  width: 20px;
+  height: 20px;
+  background-image: url("img/Github_Logo.png");
   background-size: cover;
-  margin-right: 8px; /* Spazio tra l'icona e il testo */
+  margin-right: 8px;
 }
 
-/* Stili per i pulsanti */
+/* Stili per i Pulsanti */
 .bottone {
-  background-color: var(--color-secondary); /* Colore di sfondo iniziale */
-  color: white; /* Colore del testo */
-  border: none; /* Rimuove il bordo del bottone */
-  padding: 15px 30px; /* Spazio interno per rendere il bottone più grande */
-  margin: 5px; /* Spazio esterno attorno al bottone */
-  border-radius: 50px; /* Bordi arrotondati per un look moderno */
-  cursor: pointer; /* Cambia il cursore a mano quando sopra il bottone */
-  transition: all 0.3s ease; /* Transizione fluida per tutte le proprietà */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombra sottile per profondità */
-  font-weight: 600; /* Rende il testo del bottone in grassetto */
-  font-size: 1rem; /* Dimensione del testo */
-  letter-spacing: 0.05em; /* Spaziatura tra le lettere */
-  text-transform: uppercase; /* Testo maiuscolo per un look distintivo */
-  outline: none; /* Rimuove l'outline quando il bottone è in focus */
+  background-color: var(--color-secondary);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  margin: 5px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  outline: none;
   margin-top: 10px;
 }
 
 .bottone:hover {
-  background-color: var(
-    --color-accent-light
-  ); /* Colore di sfondo al passaggio del mouse */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Ombra più profonda per l'hover */
-  transform: translateY(-2px); /* Solleva il bottone al passaggio del mouse */
+  background-color: var(--color-accent-light);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
 }
 
 .bottone:active {
-  transform: translateY(
-    -1px
-  ); /* Spinge leggermente il bottone quando premuto */
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); /* Ombra più piccola quando il bottone è premuto */
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
 }
 
-/* Stili per le condizioni delle carte */
+/* Stili per le Condizioni delle Carte */
 .mint,
 .near-mint,
 .excellent,
@@ -272,48 +299,42 @@ body {
 .light-played,
 .played,
 .poor {
-  color: black; /* Colore del testo */
-  padding: 5px 10px; /* Spazio interno per rendere il tag visibile */
-  border-radius: 15px; /* Bordo arrotondato */
-  display: inline-block; /* Permette l'applicazione di padding e bordi */
+  color: black;
+  padding: 5px 10px;
+  border-radius: 15px;
+  display: inline-block;
 }
 
 .mint {
-  background-color: #4caf50; /* Verde per condizioni perfette */
+  background-color: #4caf50;
 }
-
 .near-mint {
-  background-color: #8bc34a; /* Verde chiaro per condizioni quasi perfette */
+  background-color: #8bc34a;
 }
-
 .excellent {
-  background-color: #cddc39; /* Lime per buone condizioni */
+  background-color: #cddc39;
 }
-
 .good {
-  background-color: #ffeb3b; /* Giallo per condizioni accettabili */
+  background-color: #ffeb3b;
 }
-
 .light-played {
-  background-color: #ffc107; /* Ambra per condizioni leggermente usate */
+  background-color: #ffc107;
 }
-
 .played {
-  background-color: #ff9800; /* Arancione per condizioni usate */
+  background-color: #ff9800;
 }
-
 .poor {
-  background-color: #f44336; /* Rosso per condizioni povere */
+  background-color: #f44336;
 }
 
 .info-req {
-  font-weight: 700; /* Rende il testo in grassetto */
+  font-weight: 700;
 }
 
 .info-res {
-  color: black; /* Colore del testo */
-  padding: 5px 10px; /* Spazio interno per rendere il tag visibile */
-  border-radius: 15px; /* Bordo arrotondato */
-  display: inline-block; /* Permette l'applicazione di padding e bordi */
-  background-color: rgba(128, 128, 128, 0.5); /* Sfondo grigio trasparente */
+  color: black;
+  padding: 5px 10px;
+  border-radius: 15px;
+  display: inline-block;
+  background-color: rgba(128, 128, 128, 0.5);
 }
