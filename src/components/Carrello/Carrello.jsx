@@ -6,6 +6,7 @@ export default function Carrello({
   paginaCorrente,
   cambiaPagina,
   numeroTotalePagine,
+  apriFinestraCarrello,
 }) {
   /*
   function carteCarrello (carta) {
@@ -16,7 +17,7 @@ export default function Carrello({
   return (
     <div className="carrello-container">
       <div className="carrello-info">
-        <Bottone title="Clicca per visualizzare il contenuto del tuo carrello">
+        <Bottone title="Clicca per visualizzare il contenuto del tuo carrello" onClick={apriFinestraCarrello}>
           Il tuo carrello 🛒
         </Bottone>
         <p>Il totale attuale del tuo carrello è di €{calcolaCarrello()}</p>

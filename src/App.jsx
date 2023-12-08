@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import hoOhImage from "./img/Ho-Oh_Crystal_Holo.png";
 import charizardImage from "./img/Dark_Charizard_Holo.png";
 import mewtwoImage from "./img/Shining_Mewtwo.png";
@@ -10,6 +10,7 @@ import Form from "./components/Form/Form";
 import Carrello from "./components/Carrello/Carrello";
 import ListaCarte from "./components/ListaCarte/ListaCarte";
 import Footer from "./components/Footer/Footer";
+import Finestra from "./components/Finestra/Finestra";
 
 const carteIniziali = [
   {
@@ -36,7 +37,7 @@ const carteIniziali = [
     id: 499476,
     nome: "Shining Mewtwo",
     lingua: "Giapponese",
-    prezzo: "1000.00",
+    prezzo: "600.00",
     set: "Neo Destiny",
     primaEdizione: false,
     condizioni: "Mint",
@@ -85,6 +86,9 @@ export default function App() {
     prezzoCarta: "prezziCrescenti",
     condizioniCarta: "condizioniCrescenti",
   });
+  const [mostraFinestra, setMostraFinestra] = useState(false);
+  const [contenutoFinestra, setContenutoFinestra] = useState(null);
+  const [titoloFinestra, setTitoloFinestra] = useState("");
 
   function aggiungiCartaAlCarrello(cartaDaAggiungere) {
     setCarteCarrello([...carteCarrello, cartaDaAggiungere]);
@@ -155,23 +159,25 @@ export default function App() {
       );
     });
 
-    // Ordinamento per prezzo
-    if (parametriRicerca.prezzoCarta === "prezziCrescenti") {
-      carteFiltrate.sort((a, b) => parseFloat(a.prezzo) - parseFloat(b.prezzo));
-    } else if (parametriRicerca.prezzoCarta === "prezziDecrescenti") {
-      carteFiltrate.sort((a, b) => parseFloat(b.prezzo) - parseFloat(a.prezzo));
-    }
+    carteFiltrate.sort((a, b) => {
+      let differenzaPrezzo = parseFloat(a.prezzo) - parseFloat(b.prezzo);
+      let differenzaCondizioni =
+        condizioniMappa[a.condizioni] - condizioniMappa[b.condizioni];
 
-    // Ordinamento per condizioni
-    if (parametriRicerca.condizioniCarta === "condizioniCrescenti") {
-      carteFiltrate.sort(
-        (a, b) => condizioniMappa[a.condizioni] - condizioniMappa[b.condizioni]
-      );
-    } else if (parametriRicerca.condizioniCarta === "condizioniDecrescenti") {
-      carteFiltrate.sort(
-        (a, b) => condizioniMappa[b.condizioni] - condizioniMappa[a.condizioni]
-      );
-    }
+      if (parametriRicerca.prezzoCarta === "prezziCrescenti") {
+        return differenzaPrezzo || differenzaCondizioni;
+      } else if (parametriRicerca.prezzoCarta === "prezziDecrescenti") {
+        return -differenzaPrezzo || differenzaCondizioni;
+      }
+
+      if (parametriRicerca.condizioniCarta === "condizioniCrescenti") {
+        return differenzaCondizioni || differenzaPrezzo;
+      } else if (parametriRicerca.condizioniCarta === "condizioniDecrescenti") {
+        return -differenzaCondizioni || differenzaPrezzo;
+      }
+
+      return 0;
+    });
 
     return carteFiltrate;
   }
@@ -179,6 +185,47 @@ export default function App() {
   const carteFiltrate = filtraCarte();
   const cartePerPagina = 5;
   const numeroTotalePagine = Math.ceil(carteFiltrate.length / cartePerPagina);
+
+  useEffect(() => {
+    if (mostraFinestra && titoloFinestra === "Carrello") {
+      setContenutoFinestra(
+        <div>
+          <div className="finestra-header">
+            <h2>{titoloFinestra}</h2>
+          </div>
+          {carteCarrello.length > 0 ? (
+            carteCarrello.map((carta) => (
+              <div key={carta.id} className="carta-nel-carrello">
+                <img src={carta.foto} alt={carta.nome} />
+                <div className="carta-info">
+                  <div className="carta-titolo">{carta.nome}</div>
+                  <div className="carta-prezzo">
+                    €{carta.prezzo}
+                    <button
+                      className="rimuovi-carta"
+                      onClick={() => rimuoviCartaDalCarrello(carta)}
+                    >
+                      x
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>Il carrello è vuoto.</p>
+          )}
+          <div className="finestra-footer">
+            <h3>Totale Carrello: €{calcolaTotaleCarrello()}</h3>
+          </div>
+        </div>
+      );
+    }
+  }, [mostraFinestra, titoloFinestra, carteCarrello]);
+
+  const apriFinestraCarrello = () => {
+    setTitoloFinestra("Carrello");
+    setMostraFinestra(true);
+  };
 
   return (
     <div>
@@ -190,6 +237,7 @@ export default function App() {
         paginaCorrente={paginaCorrente}
         cambiaPagina={cambiaPagina}
         numeroTotalePagine={numeroTotalePagine}
+        apriFinestraCarrello={apriFinestraCarrello}
       />
       <ListaCarte
         carte={carteFiltrate}
@@ -204,6 +252,13 @@ export default function App() {
         cambiaPagina={cambiaPagina}
         resettaParametriRicerca={resettaParametriRicerca}
       />
+      <Finestra
+        isOpen={mostraFinestra}
+        onClose={() => setMostraFinestra(false)}
+        title={titoloFinestra}
+      >
+        {contenutoFinestra}
+      </Finestra>
       <Footer />
     </div>
   );
