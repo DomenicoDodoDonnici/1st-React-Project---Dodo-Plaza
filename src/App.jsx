@@ -62,11 +62,29 @@ const carteIniziali = [
     condizioni: "Light Played",
     foto: gyaradosImage,
   },
+  {
+    id: 371822,
+    nome: "Gyarados Holo",
+    lingua: "Giapponese",
+    prezzo: "10000,00",
+    set: "Skyridge",
+    primaEdizione: false,
+    condizioni: "Mint",
+    foto: gyaradosImage,
+  },
 ];
 
 export default function App() {
   const [carteCarrello, setCarteCarrello] = useState([]);
   const [cartePreferite, setCartePreferite] = useState([]);
+  const [paginaCorrente, setPaginaCorrente] = useState(1);
+  const [parametriRicerca, setParametriRicerca] = useState({
+    nomePokemon: "",
+    nomeSet: "",
+    linguaCarta: "",
+    prezzoCarta: "prezziCrescenti",
+    condizioniCarta: "condizioniCrescenti",
+  });
 
   function aggiungiCartaAlCarrello(cartaDaAggiungere) {
     setCarteCarrello([...carteCarrello, cartaDaAggiungere]);
@@ -80,7 +98,7 @@ export default function App() {
 
   function calcolaTotaleCarrello() {
     return carteCarrello.reduce(
-      (totale, carta) => totale + Number(carta.prezzo),
+      (totale, carta) => totale + parseFloat(carta.prezzo),
       0
     );
   }
@@ -95,22 +113,67 @@ export default function App() {
     );
   }
 
+  const cambiaPagina = (numeroPagina) => {
+    setPaginaCorrente(numeroPagina);
+  };
+
+  function resettaParametriRicerca() {
+    setParametriRicerca({
+      nomePokemon: "",
+      nomeSet: "",
+      linguaCarta: "",
+      prezzoCarta: "prezziCrescenti",
+      condizioniCarta: "condizioniCrescenti",
+    });
+  }
+
+  function filtraCarte() {
+    return carteIniziali.filter((carta) => {
+      return (
+        (parametriRicerca.nomePokemon === "" ||
+          carta.nome
+            .toLowerCase()
+            .includes(parametriRicerca.nomePokemon.toLowerCase())) &&
+        (parametriRicerca.nomeSet === "" ||
+          carta.set
+            .toLowerCase()
+            .includes(parametriRicerca.nomeSet.toLowerCase())) &&
+        (parametriRicerca.linguaCarta === "" ||
+          carta.lingua
+            .toLowerCase()
+            .includes(parametriRicerca.linguaCarta.toLowerCase()))
+        // Aggiungi qui ulteriori condizioni di filtraggio per prezzo e condizioni se necessario
+      );
+    });
+  }
+
+  const carteFiltrate = filtraCarte();
+  const cartePerPagina = 5;
+  const numeroTotalePagine = Math.ceil(carteFiltrate.length / cartePerPagina);
+
   return (
     <div>
       <Header />
-      <Form />
+      <Form setParametriRicerca={setParametriRicerca} />
       <Carrello
         carteCarrello={carteCarrello}
         calcolaCarrello={calcolaTotaleCarrello}
+        paginaCorrente={paginaCorrente}
+        cambiaPagina={cambiaPagina}
+        numeroTotalePagine={numeroTotalePagine}
       />
       <ListaCarte
-        carte={carteIniziali}
+        carte={carteFiltrate}
         carteCarrello={carteCarrello}
         aggiungiCarrello={aggiungiCartaAlCarrello}
         rimuoviCarrello={rimuoviCartaDalCarrello}
         cartePreferite={cartePreferite}
         aggiungiPreferiti={aggiungiCartaAiPreferiti}
         rimuoviPreferiti={rimuoviCartaDaiPreferiti}
+        paginaCorrente={paginaCorrente}
+        cartePerPagina={cartePerPagina}
+        cambiaPagina={cambiaPagina}
+        resettaParametriRicerca={resettaParametriRicerca}
       />
       <Footer />
     </div>

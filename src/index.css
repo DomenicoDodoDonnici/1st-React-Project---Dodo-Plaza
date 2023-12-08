@@ -113,23 +113,32 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 10px; /* Ajusta questo valore per centrare verticalmente */
+  margin-bottom: 10px; /* Aggiungi un margine inferiore se necessario */
 }
 
-.pagination a {
+.pagination button {
   padding: 8px 16px;
-  text-decoration: none;
   margin: 0 4px;
   border: 1px solid #ddd;
   background-color: #f5f5f5;
+  color: var(--color-secondary);
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
-.pagination a:hover {
-  border-color: #999;
-  background-color: #e0e0e0;
+.pagination button:hover {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent-light);
 }
 
-.pagination a:last-child {
-  border-right: none;
+.pagination button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+  background-color: #f5f5f5;
+  border-color: #ddd;
 }
 
 /* Stili per la Lista delle Carte */
@@ -337,4 +346,28 @@ body {
   border-radius: 15px;
   display: inline-block;
   background-color: rgba(128, 128, 128, 0.5);
+}
+
+/* Stili per il Messaggio di Fine Lista */
+.fine-lista-messaggio {
+  text-align: center;
+  margin-top: 20px;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.fine-lista-messaggio button {
+  background-color: var(--color-secondary);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.fine-lista-messaggio button:hover {
+  background-color: var(--color-accent-light);
+  transform: translateY(-2px);
 }
