@@ -16,7 +16,7 @@ const carteIniziali = [
     id: 118836,
     nome: "Ho-Oh Crystal Holo",
     lingua: "Inglese",
-    prezzo: "500,00",
+    prezzo: "500.00",
     set: "Skyridge",
     primaEdizione: false,
     condizioni: "Poor",
@@ -26,7 +26,7 @@ const carteIniziali = [
     id: 933372,
     nome: "Dark Charizard Holo",
     lingua: "Inglese",
-    prezzo: "50,00",
+    prezzo: "50.00",
     set: "Team Rocket",
     primaEdizione: true,
     condizioni: "Good",
@@ -36,7 +36,7 @@ const carteIniziali = [
     id: 499476,
     nome: "Shining Mewtwo",
     lingua: "Giapponese",
-    prezzo: "1000,00",
+    prezzo: "1000.00",
     set: "Neo Destiny",
     primaEdizione: false,
     condizioni: "Mint",
@@ -46,7 +46,7 @@ const carteIniziali = [
     id: 673712,
     nome: "Mew Goldstar",
     lingua: "Giapponese",
-    prezzo: "600,00",
+    prezzo: "600.00",
     set: "EX Dragon Frontiers",
     primaEdizione: false,
     condizioni: "Excellent",
@@ -56,7 +56,7 @@ const carteIniziali = [
     id: 172832,
     nome: "Gyarados Holo",
     lingua: "Giapponese",
-    prezzo: "300,00",
+    prezzo: "300.00",
     set: "Skyridge",
     primaEdizione: true,
     condizioni: "Light Played",
@@ -66,7 +66,7 @@ const carteIniziali = [
     id: 371822,
     nome: "Gyarados Holo",
     lingua: "Giapponese",
-    prezzo: "10000,00",
+    prezzo: "10000.00",
     set: "Skyridge",
     primaEdizione: false,
     condizioni: "Mint",
@@ -128,7 +128,17 @@ export default function App() {
   }
 
   function filtraCarte() {
-    return carteIniziali.filter((carta) => {
+    const condizioniMappa = {
+      Mint: 7,
+      "Near Mint": 6,
+      Excellent: 5,
+      Good: 4,
+      "Light Played": 3,
+      Played: 2,
+      Poor: 1,
+    };
+
+    let carteFiltrate = carteIniziali.filter((carta) => {
       return (
         (parametriRicerca.nomePokemon === "" ||
           carta.nome
@@ -142,9 +152,28 @@ export default function App() {
           carta.lingua
             .toLowerCase()
             .includes(parametriRicerca.linguaCarta.toLowerCase()))
-        // Aggiungi qui ulteriori condizioni di filtraggio per prezzo e condizioni se necessario
       );
     });
+
+    // Ordinamento per prezzo
+    if (parametriRicerca.prezzoCarta === "prezziCrescenti") {
+      carteFiltrate.sort((a, b) => parseFloat(a.prezzo) - parseFloat(b.prezzo));
+    } else if (parametriRicerca.prezzoCarta === "prezziDecrescenti") {
+      carteFiltrate.sort((a, b) => parseFloat(b.prezzo) - parseFloat(a.prezzo));
+    }
+
+    // Ordinamento per condizioni
+    if (parametriRicerca.condizioniCarta === "condizioniCrescenti") {
+      carteFiltrate.sort(
+        (a, b) => condizioniMappa[a.condizioni] - condizioniMappa[b.condizioni]
+      );
+    } else if (parametriRicerca.condizioniCarta === "condizioniDecrescenti") {
+      carteFiltrate.sort(
+        (a, b) => condizioniMappa[b.condizioni] - condizioniMappa[a.condizioni]
+      );
+    }
+
+    return carteFiltrate;
   }
 
   const carteFiltrate = filtraCarte();
