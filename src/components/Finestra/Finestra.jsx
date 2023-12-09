@@ -7,7 +7,6 @@ const Finestra = ({ isOpen, onClose, children }) => {
         <button onClick={onClose} className="finestra-close-button">
           X
         </button>
-        <br /><br />
         <div className="finestra-content">{children}</div>
       </div>
     </div>

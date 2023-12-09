@@ -55,7 +55,7 @@ export default function Form({ setParametriRicerca }) {
       </div>
 
       <div className="form-group">
-        <label htmlFor="prezzo-carta">🟣 Prezzo Carta</label>
+        <label htmlFor="prezzo-carta">🟣 Ordinamento Prezzi</label>
         <select
           id="prezzo-carta"
           value={prezzoCarta}
@@ -72,7 +72,7 @@ export default function Form({ setParametriRicerca }) {
           value={condizioniCarta}
           onChange={(e) => setCondizioniCarta(e.target.value)}
         >
-          🟣 Condizioni Carta
+          🟣 Condizioni Minime
         </label>
         <select id="condizioni-carta">
           <option value="condizioniCrescenti">Condizioni crescenti</option>

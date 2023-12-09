@@ -196,7 +196,11 @@ export default function App() {
           {carteCarrello.length > 0 ? (
             carteCarrello.map((carta) => (
               <div key={carta.id} className="carta-nel-carrello">
-                <img src={carta.foto} alt={carta.nome} />
+                <img
+                  src={carta.foto}
+                  alt={carta.nome}
+                  style={{ width: "80px" }}
+                />
                 <div className="carta-info">
                   <div className="carta-titolo">{carta.nome}</div>
                   <div className="carta-prezzo">
@@ -205,7 +209,7 @@ export default function App() {
                       className="rimuovi-carta"
                       onClick={() => rimuoviCartaDalCarrello(carta)}
                     >
-                      x
+                      X
                     </button>
                   </div>
                 </div>
