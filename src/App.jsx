@@ -84,7 +84,7 @@ export default function App() {
     nomeSet: "",
     linguaCarta: "",
     prezzoCarta: "prezziCrescenti",
-    condizioniCarta: "condizioniCrescenti",
+    condizioniCarta: "Poor",
   });
   const [mostraFinestra, setMostraFinestra] = useState(false);
   const [contenutoFinestra, setContenutoFinestra] = useState(null);
@@ -143,37 +143,36 @@ export default function App() {
     };
 
     let carteFiltrate = carteIniziali.filter((carta) => {
-      return (
-        (parametriRicerca.nomePokemon === "" ||
-          carta.nome
-            .toLowerCase()
-            .includes(parametriRicerca.nomePokemon.toLowerCase())) &&
-        (parametriRicerca.nomeSet === "" ||
-          carta.set
-            .toLowerCase()
-            .includes(parametriRicerca.nomeSet.toLowerCase())) &&
-        (parametriRicerca.linguaCarta === "" ||
-          carta.lingua
-            .toLowerCase()
-            .includes(parametriRicerca.linguaCarta.toLowerCase()))
-      );
+      const filtroNome =
+        parametriRicerca.nomePokemon === "" ||
+        carta.nome
+          .toLowerCase()
+          .includes(parametriRicerca.nomePokemon.toLowerCase());
+      const filtroSet =
+        parametriRicerca.nomeSet === "" ||
+        carta.set
+          .toLowerCase()
+          .includes(parametriRicerca.nomeSet.toLowerCase());
+      const filtroLingua =
+        parametriRicerca.linguaCarta === "" ||
+        carta.lingua
+          .toLowerCase()
+          .includes(parametriRicerca.linguaCarta.toLowerCase());
+
+      const filtroCondizione =
+        condizioniMappa[carta.condizioni] >=
+        condizioniMappa[parametriRicerca.condizioniCarta];
+
+      return filtroNome && filtroSet && filtroLingua && filtroCondizione;
     });
 
     carteFiltrate.sort((a, b) => {
       let differenzaPrezzo = parseFloat(a.prezzo) - parseFloat(b.prezzo);
-      let differenzaCondizioni =
-        condizioniMappa[a.condizioni] - condizioniMappa[b.condizioni];
 
       if (parametriRicerca.prezzoCarta === "prezziCrescenti") {
-        return differenzaPrezzo || differenzaCondizioni;
+        return differenzaPrezzo;
       } else if (parametriRicerca.prezzoCarta === "prezziDecrescenti") {
-        return -differenzaPrezzo || differenzaCondizioni;
-      }
-
-      if (parametriRicerca.condizioniCarta === "condizioniCrescenti") {
-        return differenzaCondizioni || differenzaPrezzo;
-      } else if (parametriRicerca.condizioniCarta === "condizioniDecrescenti") {
-        return -differenzaCondizioni || differenzaPrezzo;
+        return -differenzaPrezzo;
       }
 
       return 0;

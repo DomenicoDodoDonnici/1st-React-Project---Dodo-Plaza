@@ -6,7 +6,7 @@ export default function Form({ setParametriRicerca }) {
   const [nomeSet, setNomeSet] = useState("");
   const [linguaCarta, setLinguaCarta] = useState("");
   const [prezzoCarta, setPrezzoCarta] = useState("prezziCrescenti");
-  const [condizioniCarta, setCondizioniCarta] = useState("condizioniCrescenti");
+  const [condizioniCarta, setCondizioniCarta] = useState("Poor");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,16 +67,20 @@ export default function Form({ setParametriRicerca }) {
       </div>
 
       <div className="form-group">
-        <label
-          htmlFor="condizioni-carta"
+        <label htmlFor="condizioni-carta">🟣 Condizioni Minime</label>
+        <select
+          id="condizioni-carta"
           value={condizioniCarta}
           onChange={(e) => setCondizioniCarta(e.target.value)}
+          className="select-lungo"
         >
-          🟣 Condizioni Minime
-        </label>
-        <select id="condizioni-carta">
-          <option value="condizioniCrescenti">Condizioni crescenti</option>
-          <option value="condizioniDecrescenti">Condizioni decrescenti</option>
+          <option value="Mint">Mint</option>
+          <option value="Near Mint">Near Mint</option>
+          <option value="Excellent">Excellent</option>
+          <option value="Good">Good</option>
+          <option value="Light Played">Light Played</option>
+          <option value="Played">Played</option>
+          <option value="Poor">Poor</option>
         </select>
       </div>
 
