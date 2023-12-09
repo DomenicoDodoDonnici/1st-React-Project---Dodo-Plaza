@@ -13,3 +13,5 @@
   In futuro dopo aver studiato a dovere lavorerò utilizzando Vite e Tailwind per il CSS, possibilmente anche TypeScript per facilitare l'implementazione di progetti di grosse dimensioni che richiedono molta scalabilità.
 
 Progetto concluso in data 10/12/2023 in seguito alla fine della prima parte del corso React di Jonas Schmedtmann (Beginner Section).
+
+Eventualmente al posto delle emoji sarebbe meglio utilizzare le icone di Font Awesome https://fontawesome.com/icons
