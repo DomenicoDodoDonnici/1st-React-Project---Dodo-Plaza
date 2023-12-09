@@ -3,8 +3,8 @@ export default function Footer() {
     <footer className="footer">
       <ul>
         <li>
-          <a className="telegram" href="https://t.me/tokyopokecards">
-            Tokyo's PokeCards (Preordini dal Giappone)
+          <a className="telegram" href="#">
+            Test (Test Text)
           </a>
         </li>
         <li>
@@ -12,8 +12,11 @@ export default function Footer() {
             PokeCards
           </a>{" "}
           <span>
-            <a className="github" href="https://github.com/DomenicoDodoDonnici">
-              GitHub
+            <a
+              className="vinted"
+              href="https://www.vinted.it/member/104393874-dodop1kwah"
+            >
+              Dodop1kwah
             </a>
           </span>
         </li>
@@ -22,11 +25,8 @@ export default function Footer() {
             PokeTrade
           </a>
           <span>
-            <a
-              className="vinted"
-              href="https://www.vinted.it/member/104393874-dodop1kwah"
-            >
-              Dodop1kwah
+            <a className="github" href="https://github.com/DomenicoDodoDonnici">
+              GitHub
             </a>
           </span>
         </li>

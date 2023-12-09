@@ -371,7 +371,7 @@ body {
 }
 
 .finestra-close-button {
-  background-color: var(--color-accent); 
+  background-color: var(--color-accent);
   color: white;
   border: none;
   border-radius: 50%;
@@ -385,7 +385,7 @@ body {
 }
 
 .finestra-close-button:hover {
-  background-color: var(--color-accent-light); 
+  background-color: var(--color-accent-light);
 }
 
 .carta-nel-carrello {
@@ -394,38 +394,30 @@ body {
   align-items: center;
   margin-top: 10px;
   position: relative;
-  border-radius: 8px; 
-  padding: 10px; 
-  margin-bottom: 10px; 
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .carta-nel-carrello img {
-  width: 80px; 
+  width: 80px;
   height: auto;
   margin-right: 10px;
 }
 
-.carta-info {
-  flex-grow: 1;
-  color: white;
+.carta-titolo {
+  font-size: 1.2rem;
 }
 
-.carta-titolo,
-.carta-lingua,
-.carta-condizioni {
-  font-size: 1rem;
-}
-
-.carta-prezzo {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: white;
+.carta-titolo, .carta-prezzo, .carta-condizioni {
+  font-weight: 700;
+  margin: 0;
+  margin-bottom: 5px;
 }
 
 .rimuovi-carta {
-  background-color: red; 
-  color: white; 
+  background-color: red;
+  color: white;
   border: none;
   border-radius: 50%;
   cursor: pointer;
@@ -434,6 +426,10 @@ body {
   position: absolute;
   bottom: 10px;
   right: 10px;
+}
+
+.rimuovi-carta:hover {
+  background-color: darkred;
 }
 
 .finestra-footer {
@@ -448,5 +444,67 @@ body {
 
 .select-lungo {
   width: 200px;
+}
+
+/* Stili aggiuntivi per la finestra delle opzioni */
+.opzioni-finestra {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: var(--color-primary);
+  border-radius: 10px;
+}
+
+.opzioni-finestra button {
+  background-color: var(--color-secondary);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  outline: none;
+}
+
+.opzioni-finestra button:hover {
+  background-color: var(--color-accent-light);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.opzioni-finestra button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Stili per i Pulsanti di Reset */
+.fine-lista-messaggio button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 5px;
+  margin: 5px;
+  font-size: 16px;
+}
+
+.fine-lista-messaggio button:hover {
+  background-color: #45a049;
+}
+
+.fine-lista-messaggio button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
 }
 
