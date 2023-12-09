@@ -230,6 +230,61 @@ export default function App() {
     setMostraFinestra(true);
   };
 
+  useEffect(() => {
+    if (mostraFinestra && titoloFinestra === "Preferiti") {
+      setContenutoFinestra(
+        <div>
+          <div className="finestra-header">
+            <h2>{titoloFinestra}</h2>
+          </div>
+          {cartePreferite.length > 0 ? (
+            cartePreferite.map((carta) => (
+              <div key={carta.id} className="carta-nel-carrello">
+                <img
+                  src={carta.foto}
+                  alt={carta.nome}
+                  style={{ width: "80px" }}
+                />
+                <div className="carta-info">
+                  <div className="carta-titolo">{carta.nome}</div>
+                  <div className="carta-condizioni">{carta.condizioni}</div>
+                  <button
+                    className="rimuovi-carta"
+                    onClick={() => rimuoviCartaDaiPreferiti(carta)}
+                  >
+                    X
+                  </button>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>Non ci sono preferiti.</p>
+          )}
+          <div className="finestra-footer">
+            {/* Qui puoi inserire il grafico delle condizioni */}
+          </div>
+        </div>
+      );
+    }
+  }, [mostraFinestra, titoloFinestra, cartePreferite]);
+
+  const apriFinestraPreferiti = () => {
+    setTitoloFinestra("Preferiti");
+    setMostraFinestra(true);
+  };
+
+  const apriFinestraOpzioni = () => {
+    setTitoloFinestra("Opzioni");
+    setContenutoFinestra(
+      <div>
+        <button>Aggiungi Carta</button>
+        <button>Modifica Carta</button>
+        <button>Rimuovi Carta</button>
+      </div>
+    );
+    setMostraFinestra(true);
+  };
+
   return (
     <div>
       <Header />
@@ -241,6 +296,8 @@ export default function App() {
         cambiaPagina={cambiaPagina}
         numeroTotalePagine={numeroTotalePagine}
         apriFinestraCarrello={apriFinestraCarrello}
+        apriFinestraPreferiti={apriFinestraPreferiti}
+        apriFinestraOpzioni={apriFinestraOpzioni}
       />
       <ListaCarte
         carte={carteFiltrate}
@@ -255,13 +312,15 @@ export default function App() {
         cambiaPagina={cambiaPagina}
         resettaParametriRicerca={resettaParametriRicerca}
       />
-      <Finestra
-        isOpen={mostraFinestra}
-        onClose={() => setMostraFinestra(false)}
-        title={titoloFinestra}
-      >
-        {contenutoFinestra}
-      </Finestra>
+      {mostraFinestra && (
+        <Finestra
+          isOpen={mostraFinestra}
+          onClose={() => setMostraFinestra(false)}
+          title={titoloFinestra}
+        >
+          {contenutoFinestra}
+        </Finestra>
+      )}
       <Footer />
     </div>
   );

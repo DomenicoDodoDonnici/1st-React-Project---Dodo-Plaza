@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Bottone from "../Bottone/Bottone";
 
 export default function Carrello({
@@ -7,26 +8,22 @@ export default function Carrello({
   cambiaPagina,
   numeroTotalePagine,
   apriFinestraCarrello,
+  apriFinestraPreferiti,
+  apriFinestraOpzioni,
 }) {
-  /*
-  function carteCarrello (carta) {
-    return carteCarrello.find((cartaCarrello) => cartaCarrello.id === carta.id);
-  }
-  */
-
   return (
     <div className="carrello-container">
       <div className="carrello-info">
-        <Bottone title="Clicca per visualizzare il contenuto del tuo carrello" onClick={apriFinestraCarrello}>
-          Il tuo carrello 🛒
-        </Bottone>
+        <Bottone onClick={apriFinestraCarrello}>Il tuo carrello 🛒</Bottone>
         <p>Il totale attuale del tuo carrello è di €{calcolaCarrello()}</p>
       </div>
       <div className="bottone-container">
-        <Bottone>Aggiungi, modifica o rimuovi una carta ⚛️</Bottone>
+        <Bottone onClick={apriFinestraOpzioni}>
+          Aggiungi, modifica o rimuovi una carta ⚛️
+        </Bottone>
       </div>
       <div className="bottone-container">
-        <Bottone>Preferiti 💟</Bottone>
+        <Bottone onClick={apriFinestraPreferiti}>Preferiti 💟</Bottone>
       </div>
       <div className="pagination">
         <button
