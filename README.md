@@ -12,4 +12,4 @@
 - Il progetto è stato creato esclusivamente a scopi didattici per ripasso con una versione 'obsoleta' per stanziare progetti React (npx create-react-app@5).
   In futuro dopo aver studiato a dovere lavorerò utilizzando Vite e Tailwind per il CSS, possibilmente anche TypeScript per facilitare l'implementazione di progetti di grosse dimensioni che richiedono molta scalabilità.
 
-Progetto concluso in data 10/12/2023 in seguito alla fine della prima parte del corso di React di Jonas Schmedtmann (Beginner Section).
+Progetto concluso in data 10/12/2023 in seguito alla fine della prima parte del corso React di Jonas Schmedtmann (Beginner Section).
