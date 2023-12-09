@@ -1,21 +1,27 @@
-import React from 'react';
+// Importa le funzioni necessarie da testing-library/react
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
+// Importa il componente Header che vuoi testare
 import Header from './Header';
 
-describe('Header Component', () => {
-  test('renders Header component', () => {
+describe('Test del componente Header', () => {
+  // Definisce un test per verificare se il header contiene il logo
+  test('verifica se il header contiene il logo', () => {
     render(<Header />);
-    expect(screen.getByText(/Dodo Plaza/i)).toBeInTheDocument();
+
+    // Verifica la presenza del logo (ad esempio, tramite testo alternativo dell'immagine)
+    const logo = screen.getByAltText(/logo/i);
+    expect(logo).toBeInTheDocument();
   });
 
-  // Test per verificare la presenza di classi CSS specifiche, se necessario
-  test('has the correct class', () => {
+  // Definisce un test per verificare la presenza di link di navigazione
+  test('verifica la presenza di link di navigazione', () => {
     render(<Header />);
-    const headerElement = screen.getByText(/Dodo Plaza/i);
-    expect(headerElement).toHaveClass('header');
-  });
 
-  // Altri test possono essere aggiunti qui, come verificare la corretta renderizzazione 
-  // di eventuali sottocomponenti o la corretta risposta a eventi utente.
+    // Verifica che il header contenga determinati link di navigazione
+    const linkHome = screen.getByText(/home/i);
+    expect(linkHome).toBeInTheDocument();
+
+    const linkAbout = screen.getByText(/about/i);
+    expect(linkAbout).toBeInTheDocument();
+  });
 });

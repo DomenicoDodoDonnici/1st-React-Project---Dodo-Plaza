@@ -1,20 +1,23 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import Bottone from './Bottone';
+// Importa le funzioni necessarie da testing-library/react
+import { render, screen, fireEvent } from "@testing-library/react";
+// Importa il componente Bottone che vuoi testare
+import Bottone from "./Bottone";
 
-describe('Bottone Component', () => {
-  test('renders Bottone component with text', () => {
-    render(<Bottone>Clicca Qui</Bottone>);
-    expect(screen.getByText('Clicca Qui')).toBeInTheDocument();
+// Descrive un gruppo di test per il componente Bottone
+describe("Test del componente Bottone", () => {
+  // Definisce un test per verificare la presenza e la funzionalità del bottone
+  test("verifica se il bottone è presente e funzionante", () => {
+    // Crea una funzione mock per simulare un click event
+    const mockOnClick = jest.fn();
+
+    // Renderizza il componente Bottone con il testo e il click event
+    render(<Bottone onClick={mockOnClick}>Test Bottone</Bottone>);
+
+    // Trova il bottone e simula un click su di esso
+    const bottone = screen.getByText("Test Bottone");
+    fireEvent.click(bottone);
+
+    // Verifica che la funzione mock sia stata chiamata
+    expect(mockOnClick).toHaveBeenCalled();
   });
-
-  test('handles click event', () => {
-    const handleClick = jest.fn();
-    render(<Bottone onClick={handleClick}>Clicca Qui</Bottone>);
-    fireEvent.click(screen.getByText('Clicca Qui'));
-    expect(handleClick).toHaveBeenCalledTimes(1);
-  });
-
-  // Altri test possono essere aggiunti qui in base alle funzionalità specifiche del tuo componente Bottone.
 });

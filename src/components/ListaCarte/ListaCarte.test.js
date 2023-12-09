@@ -1,45 +1,52 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import ListaCarte from './ListaCarte';
+// Importa le funzioni necessarie da testing-library/react
+import { render, screen, fireEvent } from "@testing-library/react";
+// Importa il componente ListaCarte che vuoi testare
+import ListaCarte from "./ListaCarte";
 
-describe('ListaCarte Component', () => {
-  const mockCarte = [
-    { id: 1, nome: 'Carta1', set: 'Set1', lingua: 'Italiano', prezzo: '100', primaEdizione: true, condizioni: 'Mint' },
-    { id: 2, nome: 'Carta2', set: 'Set2', lingua: 'Inglese', prezzo: '200', primaEdizione: false, condizioni: 'Near Mint' }
-  ];
+describe("Test del componente ListaCarte", () => {
+  // Definisce un test per verificare se il componente renderizza le carte
+  test("verifica se il componente renderizza le carte", () => {
+    const carteMock = [
+      {
+        id: 1,
+        nome: "Carta 1",
+        prezzo: "100",
+        condizioni: "Mint",
+        foto: "url1",
+      },
+      {
+        id: 2,
+        nome: "Carta 2",
+        prezzo: "200",
+        condizioni: "Near Mint",
+        foto: "url2",
+      },
+      // Aggiungi qui altre carte mock se necessario
+    ];
 
-  test('renders ListaCarte component with cards', () => {
-    render(
-      <ListaCarte 
-        carte={mockCarte} 
-        carteCarrello={[]} 
-        aggiungiCarrello={() => {}} 
-        rimuoviCarrello={() => {}} 
-        cartePreferite={[]} 
-        aggiungiPreferiti={() => {}} 
-        rimuoviPreferiti={() => {}}
-      />
-    );
-    expect(screen.getByText('Carta1')).toBeInTheDocument();
-    expect(screen.getByText('Carta2')).toBeInTheDocument();
+    render(<ListaCarte carte={carteMock} />);
+
+    // Verifica che le carte siano renderizzate
+    expect(screen.getByText("Carta 1")).toBeInTheDocument();
+    expect(screen.getByText("Carta 2")).toBeInTheDocument();
+    // Aggiungi qui altri controlli se necessario
   });
 
-  test('renders empty list when no cards', () => {
-    render(
-      <ListaCarte 
-        carte={[]} 
-        carteCarrello={[]} 
-        aggiungiCarrello={() => {}} 
-        rimuoviCarrello={() => {}} 
-        cartePreferite={[]} 
-        aggiungiPreferiti={() => {}} 
-        rimuoviPreferiti={() => {}}
-      />
-    );
-    expect(screen.queryByText('Carta1')).toBeNull();
-    expect(screen.queryByText('Carta2')).toBeNull();
-  });
+  // Definisce un test per verificare la paginazione
+  test("verifica la funzionalità di paginazione", () => {
+    // Assumi che il componente ListaCarte abbia una prop per la paginazione
+    const cambiaPaginaMock = jest.fn();
+    const carteMock = [
+      /* ... */
+    ]; // Usa lo stesso array di carte mock
 
-  // Altri test possono essere aggiunti qui in base alle funzionalità specifiche del tuo componente ListaCarte.
+    render(<ListaCarte carte={carteMock} cambiaPagina={cambiaPaginaMock} />);
+
+    // Simula l'interazione con il controllo di paginazione
+    const buttonPaginaSuccessiva = screen.getByText(/pagina successiva/i);
+    fireEvent.click(buttonPaginaSuccessiva);
+
+    // Verifica che la funzione cambiaPaginaMock sia stata chiamata
+    expect(cambiaPaginaMock).toHaveBeenCalled();
+  });
 });

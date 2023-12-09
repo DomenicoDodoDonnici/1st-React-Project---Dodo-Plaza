@@ -1,18 +1,24 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import Footer from './Footer';
+// Importa le funzioni necessarie da testing-library/react
+import { render, screen } from "@testing-library/react";
+// Importa il componente Footer che vuoi testare
+import Footer from "./Footer";
 
-describe('Footer Component', () => {
-  test('renders Footer component', () => {
+describe("Test del componente Footer", () => {
+  // Definisce un test per verificare se il footer contiene il testo atteso
+  test("verifica se il footer contiene il testo specifico", () => {
     render(<Footer />);
-    expect(screen.getByText('Sito fatto con 💜 da Dodo')).toBeInTheDocument();
-    expect(screen.getByText("Tokyo's PokeCards (Preordini dal Giappone)")).toBeInTheDocument();
-    expect(screen.getByText('PokeCards')).toBeInTheDocument();
-    expect(screen.getByText('PokeTrade')).toBeInTheDocument();
-    expect(screen.getByText('GitHub')).toBeInTheDocument();
-    expect(screen.getByText('Dodop1kwah')).toBeInTheDocument();
+
+    // Verifica che il footer contenga un certo testo
+    const testoAtteso = "© 2023 Il Mio Progetto React";
+    expect(screen.getByText(testoAtteso)).toBeInTheDocument();
   });
 
-  // Altri test possono essere aggiunti qui in base alle funzionalità specifiche del tuo componente Footer.
+  // Definisce un test per verificare la presenza di link o altri elementi
+  test("verifica la presenza di link o elementi specifici", () => {
+    render(<Footer />);
+
+    // Verifica che il footer contenga un certo link o elemento
+    const linkAtteso = "Termini di Servizio";
+    expect(screen.getByText(linkAtteso)).toBeInTheDocument();
+  });
 });

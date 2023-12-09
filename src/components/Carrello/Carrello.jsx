@@ -2,7 +2,6 @@ import { useState } from "react";
 import Bottone from "../Bottone/Bottone";
 
 export default function Carrello({
-  carteCarrello,
   calcolaCarrello,
   paginaCorrente,
   cambiaPagina,

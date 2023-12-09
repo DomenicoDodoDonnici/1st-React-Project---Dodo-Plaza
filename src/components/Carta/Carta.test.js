@@ -1,65 +1,76 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import Carta from './Carta';
+// Importa le funzioni necessarie da testing-library/react
+import { render, screen, fireEvent } from "@testing-library/react";
+// Importa il componente Carta che vuoi testare
+import Carta from "./Carta";
 
-describe('Carta Component', () => {
-  const mockCarta = {
-    id: 1,
-    nome: 'Carta Test',
-    lingua: 'Italiano',
-    prezzo: '100,00',
-    set: 'Test Set',
-    primaEdizione: true,
-    condizioni: 'Mint',
-    foto: 'url-to-image'
-  };
+// Crea un oggetto fittizio per rappresentare una carta
+const cartaMock = {
+  id: 1,
+  nome: "Pikachu",
+  lingua: "Inglese",
+  prezzo: "100.00",
+  set: "Base Set",
+  primaEdizione: true,
+  condizioni: "Mint",
+  foto: "url_immagine_pikachu",
+};
 
-  const mockFunzioni = {
-    aggiungiCarrello: jest.fn(),
-    rimuoviCarrello: jest.fn(),
-    aggiungiPreferiti: jest.fn(),
-    rimuoviPreferiti: jest.fn(),
-  };
+// Descrive un gruppo di test per il componente Carta
+describe("Test del componente Carta", () => {
+  // Definisce i mock (funzioni fittizie) per i callback passati al componente
+  const mockAggiungiCarrello = jest.fn();
+  const mockRimuoviCarrello = jest.fn();
+  const mockAggiungiPreferiti = jest.fn();
+  const mockRimuoviPreferiti = jest.fn();
 
-  test('renders Carta component', () => {
+  // Definisce un test per verificare la presenza e la funzionalità dei bottoni
+  test("verifica se i bottoni funzionano correttamente", () => {
+    // Renderizza il componente Carta con i props necessari
     render(
       <Carta
-        carta={mockCarta}
+        carta={cartaMock}
         carteCarrello={[]}
+        aggiungiCarrello={mockAggiungiCarrello}
+        rimuoviCarrello={mockRimuoviCarrello}
         cartePreferite={[]}
-        {...mockFunzioni}
+        aggiungiPreferiti={mockAggiungiPreferiti}
+        rimuoviPreferiti={mockRimuoviPreferiti}
       />
     );
-    expect(screen.getByText('Carta Test')).toBeInTheDocument();
-    expect(screen.getByText('100,00')).toBeInTheDocument();
-  });
 
-  test('aggiungi al carrello button click calls function', () => {
+    // Trova e simula un click sul bottone per aggiungere al carrello
+    const bottoneAggiungiCarrello = screen.getByText("Aggiungi al carrello 🛒");
+    fireEvent.click(bottoneAggiungiCarrello);
+    expect(mockAggiungiCarrello).toHaveBeenCalledWith(cartaMock);
+
+    // Trova e simula un click sul bottone per aggiungere ai preferiti
+    const bottoneAggiungiPreferiti = screen.getByText(
+      "Aggiungi ai preferiti 💟"
+    );
+    fireEvent.click(bottoneAggiungiPreferiti);
+    expect(mockAggiungiPreferiti).toHaveBeenCalledWith(cartaMock);
+
+    // Aggiorna i props per simulare una carta già nel carrello e nei preferiti
     render(
       <Carta
-        carta={mockCarta}
-        carteCarrello={[]}
-        cartePreferite={[]}
-        {...mockFunzioni}
+        carta={cartaMock}
+        carteCarrello={[cartaMock]}
+        aggiungiCarrello={mockAggiungiCarrello}
+        rimuoviCarrello={mockRimuoviCarrello}
+        cartePreferite={[cartaMock]}
+        aggiungiPreferiti={mockAggiungiPreferiti}
+        rimuoviPreferiti={mockRimuoviPreferiti}
       />
     );
-    fireEvent.click(screen.getByText(/Aggiungi al carrello/i));
-    expect(mockFunzioni.aggiungiCarrello).toHaveBeenCalledWith(mockCarta);
-  });
 
-  test('aggiungi ai preferiti button click calls function', () => {
-    render(
-      <Carta
-        carta={mockCarta}
-        carteCarrello={[]}
-        cartePreferite={[]}
-        {...mockFunzioni}
-      />
-    );
-    fireEvent.click(screen.getByText(/Aggiungi ai preferiti/i));
-    expect(mockFunzioni.aggiungiPreferiti).toHaveBeenCalledWith(mockCarta);
-  });
+    // Trova e simula un click sul bottone per rimuovere dal carrello
+    const bottoneRimuoviCarrello = screen.getByText("Rimuovi dal carrello");
+    fireEvent.click(bottoneRimuoviCarrello);
+    expect(mockRimuoviCarrello).toHaveBeenCalledWith(cartaMock);
 
-  // Altri test possono essere aggiunti qui in base alle funzionalità specifiche del tuo componente Carta.
+    // Trova e simula un click sul bottone per rimuovere dai preferiti
+    const bottoneRimuoviPreferiti = screen.getByText("Rimuovi dai preferiti");
+    fireEvent.click(bottoneRimuoviPreferiti);
+    expect(mockRimuoviPreferiti).toHaveBeenCalledWith(cartaMock);
+  });
 });

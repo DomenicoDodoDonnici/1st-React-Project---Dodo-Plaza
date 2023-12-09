@@ -1,22 +1,33 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import App from './App';
+// Importa le funzioni necessarie da testing-library/react
+import { render, screen } from "@testing-library/react";
+// Importa il componente App che vuoi testare
+import App from "./App";
 
-describe('App Component', () => {
-  test('renders App component and its child components', () => {
+describe("Test del componente App", () => {
+  // Definisce un test per verificare se l'app renderizza il componente Header
+  test("verifica se l'app renderizza il componente Header", () => {
     render(<App />);
-    
-    // Testa la presenza di elementi specifici dei componenti figlio
-    // Assicurati che i testi usati qui sotto corrispondano a quelli presenti nei tuoi componenti
-    expect(screen.getByText('Dodo Plaza')).toBeInTheDocument(); // Da Header
-    expect(screen.getByLabelText(/Nome Pokémon/i)).toBeInTheDocument(); // Da Form
-    expect(screen.getByText('Il tuo carrello 🛒')).toBeInTheDocument(); // Da Carrello
-    expect(screen.getByText('Ho-Oh Crystal Holo')).toBeInTheDocument(); // Da ListaCarte
-    expect(screen.getByText(/Sito fatto con 💜 da Dodo/)).toBeInTheDocument(); // Da Footer
 
-    // Puoi aggiungere altri test per controllare la renderizzazione di altri componenti o elementi specifici
+    // Verifica la presenza di un elemento specifico del Header
+    const elementoHeader = screen.getByText(/nome del tuo sito o logo/i);
+    expect(elementoHeader).toBeInTheDocument();
   });
 
-  // Qui puoi aggiungere altri test per funzionalità specifiche della tua App
+  // Definisce un test per verificare se l'app renderizza il componente Footer
+  test("verifica se l'app renderizza il componente Footer", () => {
+    render(<App />);
+
+    // Verifica la presenza di un elemento specifico del Footer
+    const elementoFooter = screen.getByText(/diritti riservati/i);
+    expect(elementoFooter).toBeInTheDocument();
+  });
+
+  // Definisce un test per verificare se l'app renderizza il componente principale
+  test("verifica se l'app renderizza il componente principale", () => {
+    render(<App />);
+
+    // Verifica la presenza di un elemento specifico del componente principale
+    const elementoPrincipale = screen.getByText(/contenuto principale/i);
+    expect(elementoPrincipale).toBeInTheDocument();
+  });
 });

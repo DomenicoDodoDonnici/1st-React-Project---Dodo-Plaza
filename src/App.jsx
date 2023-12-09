@@ -301,7 +301,6 @@ export default function App() {
       <Header />
       <Form setParametriRicerca={setParametriRicerca} />
       <Carrello
-        carteCarrello={carteCarrello}
         calcolaCarrello={calcolaTotaleCarrello}
         paginaCorrente={paginaCorrente}
         cambiaPagina={cambiaPagina}
